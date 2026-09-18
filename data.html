@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Environmental Data | Kyrgyzstan</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f7f2;
+            color: #17251c;
+            line-height: 1.6;
+        }
+
+        /* =========================
+           NAVIGATION
+        ========================= */
+
+        nav {
+            width: 100%;
+            padding: 20px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(245, 247, 242, 0.95);
+            border-bottom: 1px solid #dfe5dc;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #314237;
+            font-size: 14px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #55785e;
+        }
+
+        /* =========================
+           HERO
+        ========================= */
+
+        .hero {
+            max-width: 1100px;
+            margin: auto;
+            padding: 100px 7% 70px;
+        }
+
+        .eyebrow {
+            color: #55785e;
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+        }
+
+        .hero h1 {
+            font-size: clamp(42px, 7vw, 76px);
+            line-height: 1.02;
+            max-width: 850px;
+            margin-bottom: 25px;
+        }
+
+        .hero p {
+            max-width: 700px;
+            font-size: 18px;
+            color: #5d6960;
+        }
+
+        /* =========================
+           SECTION
+        ========================= */
+
+        section {
+            max-width: 1100px;
+            margin: auto;
+            padding: 70px 7%;
+        }
+
+        .section-number {
+            font-size: 13px;
+            color: #55785e;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        section h2 {
+            font-size: 38px;
+            margin-bottom: 15px;
+        }
+
+        .section-intro {
+            color: #657067;
+            max-width: 700px;
+            margin-bottom: 35px;
+        }
+
+        /* =========================
+           CARDS
+        ========================= */
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            border: 1px solid #e0e5df;
+            border-radius: 22px;
+            padding: 30px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 15px 35px rgba(35, 55, 40, 0.08);
+        }
+
+        .icon {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        .card h3 {
+            font-size: 21px;
+            margin-bottom: 15px;
+        }
+
+        .big-number {
+            font-size: 38px;
+            font-weight: 700;
+            margin: 15px 0 5px;
+            color: #314f38;
+        }
+
+        .unit {
+            color: #657067;
+            font-size: 14px;
+        }
+
+        .card p {
+            color: #657067;
+            font-size: 15px;
+        }
+
+        /* =========================
+           CHART
+        ========================= */
+
+        .chart-container {
+            background: white;
+            border: 1px solid #e0e5df;
+            border-radius: 22px;
+            padding: 35px;
+            margin-top: 30px;
+            overflow-x: auto;
+        }
+
+        .chart-title {
+            font-size: 23px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .chart-description {
+            color: #69746c;
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+
+        .chart {
+            min-width: 600px;
+            height: 320px;
+            position: relative;
+            border-left: 2px solid #cfd8d0;
+            border-bottom: 2px solid #cfd8d0;
+            margin-left: 45px;
+        }
+
+        .grid-line {
+            position: absolute;
+            left: 0;
+            right: 0;
+            border-top: 1px dashed #e2e7e2;
+        }
+
+        .line-1 { top: 0%; }
+        .line-2 { top: 25%; }
+        .line-3 { top: 50%; }
+        .line-4 { top: 75%; }
+
+        .y-label {
+            position: absolute;
+            left: -45px;
+            transform: translateY(-50%);
+            font-size: 11px;
+            color: #7a847c;
+        }
+
+        .y1 { top: 0%; }
+        .y2 { top: 25%; }
+        .y3 { top: 50%; }
+        .y4 { top: 75%; }
+        .y5 { top: 100%; }
+
+        .bars {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-end;
+            padding: 0 25px;
+        }
+
+        .bar-wrapper {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            width: 60px;
+        }
+
+        .bar {
+            width: 42px;
+            height: 0;
+            background: #55785e;
+            border-radius: 8px 8px 0 0;
+            transition: height 1s ease, opacity 0.3s ease;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .bar:hover {
+            opacity: 0.75;
+        }
+
+        .bar-value {
+            position: absolute;
+            top: -27px;
+            width: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            font-size: 11px;
+            font-weight: 700;
+            color: #314f38;
+        }
+
+        .year {
+            margin-top: 10px;
+            font-size: 12px;
+            color: #69746c;
+        }
+
+        /* =========================
+           WASTE
+        ========================= */
+
+        .waste-box {
+            background: #e9efe8;
+            border-radius: 25px;
+            padding: 40px;
+            margin-top: 30px;
+        }
+
+        .waste-number {
+            font-size: clamp(42px, 7vw, 65px);
+            font-weight: 700;
+            color: #314f38;
+        }
+
+        .waste-label {
+            font-size: 17px;
+            font-weight: 600;
+            max-width: 650px;
+            margin-bottom: 20px;
+        }
+
+        .note {
+            font-size: 13px;
+            color: #68736b;
+            max-width: 750px;
+        }
+
+        /* =========================
+           CLIMATE
+        ========================= */
+
+        .climate-box {
+            background: #17251c;
+            color: white;
+            border-radius: 25px;
+            padding: 50px;
+            margin-top: 30px;
+        }
+
+        .climate-box h3 {
+            font-size: 30px;
+            margin-bottom: 15px;
+        }
+
+        .climate-box p {
+            color: #cbd4cc;
+            max-width: 720px;
+        }
+
+        .climate-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-top: 35px;
+        }
+
+        .climate-item {
+            border: 1px solid #405047;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .climate-item span {
+            font-size: 27px;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .climate-item p {
+            font-size: 13px;
+        }
+
+        /* =========================
+           DATA → ACTION
+        ========================= */
+
+        .flow {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+
+        .flow-step {
+            background: white;
+            border: 1px solid #dfe5df;
+            border-radius: 14px;
+            padding: 18px;
+            text-align: center;
+            flex: 1;
+            min-width: 120px;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .arrow {
+            color: #55785e;
+            font-size: 22px;
+        }
+
+        .solution {
+            background: #e5eee5;
+            border-radius: 22px;
+            padding: 35px;
+            margin-top: 30px;
+        }
+
+        .solution h3 {
+            font-size: 25px;
+            margin-bottom: 10px;
+        }
+
+        .solution p {
+            color: #5f6b62;
+            max-width: 700px;
+        }
+
+        .button {
+            display: inline-block;
+            margin-top: 25px;
+            padding: 13px 22px;
+            border-radius: 30px;
+            background: #314f38;
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 700;
+            transition: 0.3s;
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+            background: #223b29;
+        }
+
+        /* =========================
+           SOURCES
+        ========================= */
+
+        .sources {
+            background: white;
+            border-top: 1px solid #e0e5df;
+            padding: 50px 7%;
+        }
+
+        .sources-inner {
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        .sources h2 {
+            font-size: 25px;
+            margin-bottom: 20px;
+        }
+
+        .sources ul {
+            padding-left: 20px;
+        }
+
+        .sources li {
+            margin-bottom: 8px;
+            color: #5f6b62;
+        }
+
+        .sources a {
+            color: #55785e;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #7a847c;
+            font-size: 13px;
+            background: #f5f7f2;
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 800px) {
+
+            .nav-links {
+                display: none;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+            .climate-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .hero {
+                padding-top: 70px;
+            }
+
+            section {
+                padding-top: 55px;
+                padding-bottom: 55px;
+            }
+
+            .climate-box {
+                padding: 35px 25px;
+            }
+        }
+
+        @media (max-width: 500px) {
+
+            .hero h1 {
+                font-size: 43px;
+            }
+
+            section h2 {
+                font-size: 31px;
+            }
+
+            .climate-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .waste-box {
+                padding: 30px 25px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- =========================
+         NAVIGATION
+    ========================= -->
+
+    <nav>
+        <div class="logo">Environmental Technology</div>
+
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="#air">Air</a></li>
+            <li><a href="#waste">Waste</a></li>
+            <li><a href="#climate">Climate</a></li>
+            <li><a href="#solution">Our Solution</a></li>
+        </ul>
+    </nav>
+
+
+    <!-- =========================
+         HERO
+    ========================= -->
+
+    <header class="hero">
+
+        <div class="eyebrow">
+            Environmental Data · Kyrgyzstan
+        </div>
+
+        <h1>
+            Understanding the problem starts with the data.
+        </h1>
+
+        <p>
+            Kyrgyzstan faces several environmental challenges, including
+            air pollution, waste accumulation and climate-related changes.
+            Data helps us understand these problems and explore how
+            technology can support environmental monitoring.
+        </p>
+
+    </header>
+
+
+    <!-- =========================
+         AIR QUALITY
+    ========================= -->
+
+    <section id="air">
+
+        <div class="section-number">
+            01 — AIR QUALITY
+        </div>
+
+        <h2>Air Pollution</h2>
+
+        <p class="section-intro">
+            Fine particulate matter is one of the key air-quality concerns
+            in Kyrgyzstan. Monitoring air pollution helps identify patterns
+            and understand where technological solutions could be useful.
+        </p>
+
+
+        <div class="cards">
+
+            <div class="card">
+
+                <div class="icon">🌫️</div>
+
+                <h3>PM₂.₅</h3>
+
+                <div class="big-number">
+                    24.38
+                </div>
+
+                <div class="unit">
+                    µg/m³ · 2022
+                </div>
+
+                <p>
+                    Average annual PM₂.₅ concentration reported for
+                    Kyrgyzstan in 2022.
+                </p>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="icon">🏠</div>
+
+                <h3>Residential Heating</h3>
+
+                <p>
+                    Residential heating is one of the important sources
+                    associated with winter air pollution in Bishkek.
+                </p>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="icon">🚗</div>
+
+                <h3>Transport</h3>
+
+                <p>
+                    Transport is another important source of air pollution,
+                    particularly during warmer months.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- CHART -->
+
+        <div class="chart-container">
+
+            <div class="chart-title">
+                Emissions from stationary sources
+            </div>
+
+            <div class="chart-description">
+                Kyrgyzstan · thousand tons · 2020–2024
+            </div>
+
+            <div class="chart">
+
+                <div class="grid-line line-1"></div>
+                <div class="grid-line line-2"></div>
+                <div class="grid-line line-3"></div>
+                <div class="grid-line line-4"></div>
+
+                <span class="y-label y1">65</span>
+                <span class="y-label y2">60</span>
+                <span class="y-label y3">55</span>
+                <span class="y-label y4">50</span>
+                <span class="y-label y5">45</span>
+
+                <div class="bars">
+
+                    <div class="bar-wrapper">
+                        <div class="bar" data-value="50.6">
+                            <span class="bar-value">50.6</span>
+                        </div>
+                        <div class="year">2020</div>
+                    </div>
+
+                    <div class="bar-wrapper">
+                        <div class="bar" data-value="54.5">
+                            <span class="bar-value">54.5</span>
+                        </div>
+                        <div class="year">2021</div>
+                    </div>
+
+                    <div class="bar-wrapper">
+                        <div class="bar" data-value="58.4">
+                            <span class="bar-value">58.4</span>
+                        </div>
+                        <div class="year">2022</div>
+                    </div>
+
+                    <div class="bar-wrapper">
+                        <div class="bar" data-value="62.3">
+                            <span class="bar-value">62.3</span>
+                        </div>
+                        <div class="year">2023</div>
+                    </div>
+
+                    <div class="bar-wrapper">
+                        <div class="bar" data-value="58.3">
+                            <span class="bar-value">58.3</span>
+                        </div>
+                        <div class="year">2024</div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <p class="note" style="margin-top:30px;">
+                Source: National Statistical Committee of the Kyrgyz Republic.
+                This indicator represents emissions from stationary sources
+                and is not the same as PM₂.₅ concentration.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         WASTE
+    ========================= -->
+
+    <section id="waste">
+
+        <div class="section-number">
+            02 — WASTE
+        </div>
+
+        <h2>Waste Management</h2>
+
+        <p class="section-intro">
+            Waste management requires reliable information about where waste
+            is accumulated, collected and processed. Digital monitoring could
+            make this information easier to use.
+        </p>
+
+
+        <div class="waste-box">
+
+            <div class="waste-number">
+                58,358.1
+            </div>
+
+            <div class="waste-label">
+                thousand tons of Class IV waste present at the beginning
+                of 2025 in Kyrgyzstan
+            </div>
+
+            <p class="note">
+                This indicator describes the amount of Class IV waste present
+                at the beginning of the year. It does not represent the amount
+                of household waste generated during 2025.
+            </p>
+
+        </div>
+
+
+        <div class="cards" style="margin-top:30px;">
+
+            <div class="card">
+                <div class="icon">♻️</div>
+                <h3>Sorting</h3>
+                <p>
+                    Better information about waste streams can support
+                    sorting and recycling systems.
+                </p>
+            </div>
+
+            <div class="card">
+                <div class="icon">📍</div>
+                <h3>Location Data</h3>
+                <p>
+                    Digital maps could help visualize where waste
+                    collection infrastructure is located.
+                </p>
+            </div>
+
+            <div class="card">
+                <div class="icon">🚛</div>
+                <h3>Smart Collection</h3>
+                <p>
+                    In a future system, collection data could help
+                    optimize waste-management routes.
+                </p>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         CLIMATE
+    ========================= -->
+
+    <section id="climate">
+
+        <div class="section-number">
+            03 — CLIMATE & ENVIRONMENT
+        </div>
+
+        <h2>Environmental Change</h2>
+
+        <p class="section-intro">
+            Climate-related changes affect mountains, water resources,
+            ecosystems and communities across Kyrgyzstan.
+        </p>
+
+
+        <div class="climate-box">
+
+            <h3>60+ years of environmental change</h3>
+
+            <p>
+                The UNEP Atlas of Environmental Change for the Kyrgyz Republic
+                brings together national, regional, global and satellite data
+                to show how the country's environment has changed over several
+                decades.
+            </p>
+
+
+            <div class="climate-grid">
+
+                <div class="climate-item">
+                    <span>🏔️</span>
+                    <p>Glaciers</p>
+                </div>
+
+                <div class="climate-item">
+                    <span>💧</span>
+                    <p>Water</p>
+                </div>
+
+                <div class="climate-item">
+                    <span>🌱</span>
+                    <p>Land & ecosystems</p>
+                </div>
+
+                <div class="climate-item">
+                    <span>🌡️</span>
+                    <p>Climate</p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         DATA TO ACTION
+    ========================= -->
+
+    <section id="solution">
+
+        <div class="section-number">
+            04 — FROM DATA TO ACTION
+        </div>
+
+        <h2>Why Environmental Data Matters</h2>
+
+        <p class="section-intro">
+            Environmental data becomes more useful when people can easily
+            understand it. Technology can help transform complex datasets
+            into information that is easier to explore.
+        </p>
+
+
+        <div class="flow">
+
+            <div class="flow-step">
+                DATA
+            </div>
+
+            <div class="arrow">→</div>
+
+            <div class="flow-step">
+                COLLECTION
+            </div>
+
+            <div class="arrow">→</div>
+
+            <div class="flow-step">
+                ANALYSIS
+            </div>
+
+            <div class="arrow">→</div>
+
+            <div class="flow-step">
+                VISUALIZATION
+            </div>
+
+            <div class="arrow">→</div>
+
+            <div class="flow-step">
+                UNDERSTANDING
+            </div>
+
+        </div>
+
+
+        <div class="solution">
+
+            <h3>Our proposed solution</h3>
+
+            <p>
+                We propose an Environmental Monitoring Platform for Kyrgyzstan:
+                a web-based system that could bring environmental information
+                together through interactive data, maps and visualizations.
+            </p>
+
+            <a href="index.html" class="button">
+                ← Back to Project
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         SOURCES
+    ========================= -->
+
+    <div class="sources">
+
+        <div class="sources-inner">
+
+            <h2>Sources</h2>
+
+            <ul>
+
+                <li>
+                    World Bank — Environmental, Social and Governance Data
+                </li>
+
+                <li>
+                    National Statistical Committee of the Kyrgyz Republic —
+                    Environmental statistics
+                </li>
+
+                <li>
+                    United Nations Environment Programme (UNEP) —
+                    Atlas of Environmental Change: Kyrgyz Republic
+                </li>
+
+                <li>
+                    World Health Organization (WHO) —
+                    Air Quality Database
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         FOOTER
+    ========================= -->
+
+    <footer>
+        Environmental Technology Project · Kyrgyzstan
+    </footer>
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================= -->
+
+    <script>
+
+        /*
+         * Animated emissions chart
+         *
+         * Values:
+         * 2020 = 50.6
+         * 2021 = 54.5
+         * 2022 = 58.4
+         * 2023 = 62.3
+         * 2024 = 58.3
+         */
+
+        const bars = document.querySelectorAll(".bar");
+
+        const minValue = 45;
+        const maxValue = 65;
+
+        function animateChart() {
+
+            bars.forEach((bar, index) => {
+
+                const value = Number(bar.dataset.value);
+
+                const percentage =
+                    ((value - minValue) / (maxValue - minValue)) * 100;
+
+                setTimeout(() => {
+
+                    bar.style.height = percentage + "%";
+
+                }, index * 150);
+
+            });
+
+        }
+
+
+        /*
+         * Start animation when chart enters the screen
+         */
+
+        const chart = document.querySelector(".chart");
+
+        const observer = new IntersectionObserver(
+
+            (entries) => {
+
+                entries.forEach(entry => {
+
+                    if (entry.isIntersecting) {
+
+                        animateChart();
+
+                        observer.unobserve(entry.target);
+
+                    }
+
+                });
+
+            },
+
+            {
+                threshold: 0.3
+            }
+
+        );
+
+        observer.observe(chart);
+
+    </script>
+
+</body>
+</html>
